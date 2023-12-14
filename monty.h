@@ -55,6 +55,14 @@ void swap(stack_t **stack, unsigned int linenum);
 void add(stack_t **stack, unsigned int linenum);
 void nop(stack_t **stack, unsigned int linenum);
 
+void sub(stack_t **stack, unsigned int linenum);
+void op_div(stack_t **stack, unsigned int linenum);
+void mul(stack_t **stack, unsigned int linenum);
+void mod(stack_t **stack, unsigned int linenum);
 
+void pchar(stack_t **stack, unsigned int linenum);
+void pstr(stack_t **stack, unsigned int linenum);
+void rotl(stack_t **stack, unsigned int linenum);
+void rotr(stack_t **stack, unsigned int linenum);
 #endif
 
