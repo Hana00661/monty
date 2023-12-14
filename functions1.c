@@ -103,8 +103,9 @@ int op_funcs(char *line, stack_t **stack, unsigned int linenum)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
-		{NULL, NULL},
-
+		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
 		};
 	int i;
 
