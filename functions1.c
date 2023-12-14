@@ -77,13 +77,13 @@ void pall(stack_t **stack, unsigned int linenum)
 
 void free_all(stack_t *stack, char *line, FILE *ptr)
 {
-	stack_t *temp = stack;
+	stack_t *tmp = stack;
 
 	while (stack)
 	{
-		temp = stack;
+		tmp = stack;
 		stack = stack->next;
-		free(temp);
+		free(tmp);
 	}
 	free(line);
 	fclose(ptr);
@@ -101,6 +101,9 @@ int op_funcs(char *line, stack_t **stack, unsigned int linenum)
 {
 	instruction_t func[] = {
 		{"pall", pall},
+		{"pint", _pint},
+		{"pop", _pop},
+		{NULL, NULL},
 
 		};
 	int i;

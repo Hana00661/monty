@@ -49,6 +49,8 @@ void push(char *token, stack_t **stack, unsigned int linenum);
 void pall(stack_t **stack, unsigned int linenum);
 void free_all(stack_t *stack, char *line, FILE *ptr);
 int op_funcs(char *line, stack_t **stack, unsigned int linenum);
+void pint(stack_t **stack, unsigned int linenum);
+void pop(stack_t **stack, unsigned int linenum);
 
 #endif
 
