@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 		if (strcmp(token, "push") == 0)
 		{
 			token = strtok(NULL, "\n\t ");
-			push(token, &stack, linenum);
+			
 		}
 		else
 			op_funcs(token, &stack, linenum);
