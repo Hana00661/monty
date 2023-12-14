@@ -101,8 +101,8 @@ int op_funcs(char *line, stack_t **stack, unsigned int linenum)
 {
 	instruction_t func[] = {
 		{"pall", pall},
-		{"pint", _pint},
-		{"pop", _pop},
+		{"pint", pint},
+		{"pop", pop},
 		{NULL, NULL},
 
 		};

@@ -29,7 +29,7 @@ void pop(stack_t **stack, unsigned int linenum)
 
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", linenumb);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", linenum);
 		error = 1;
 		return;
 	}
