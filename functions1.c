@@ -1,7 +1,7 @@
 #include "monty.h"
-
 /**
  * push - a function that push an item into stack.
+ * @token: number to add in the node
  * @stack: is a parameter.
  * @linenum: line of the command.
  * Return: void.
@@ -9,44 +9,44 @@
 
 void push(char *token, stack_t **stack, unsigned int linenum)
 {
-        int i;
-        stack_t *new = NULL;
+	int i;
+	stack_t *new = NULL;
 
-        if (token == NULL)
-        {
-                fprintf(stderr, "L%d: usage: push integer\n", linenum);
-                error = 1;
-                return;
-        }
-        for (i = 0; token[i] != '\0'; i++)
-        {
-                if (token[i] == '-')
-                        i++;
-                if (isdigit(token[i]) == 0)
-                {
-                        fprintf(stderr, "L%d: usage: push integer\n", linenum);
-                        error = 1;
-                        return;
-                }
-        }
-        new = malloc(sizeof(stack_t));
+	if (token == NULL)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", linenum);
+		error = 1;
+		return;
+	}
+	for (i = 0; token[i] != '\0'; i++)
+	{
+		if (token[i] == '-')
+			i++;
+		if (isdigit(token[i]) == 0)
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", linenum);
+			error = 1;
+			return;
+		}
+	}
+	new = malloc(sizeof(stack_t));
 
-        if (new == NULL)
-        {
-                perror("Error: malloc failed\n");
-                error = 1;
-                return;
-        }
-        new->n = atoi(token);
-        new->prev = NULL;
-        new->next = NULL;
+	if (new == NULL)
+	{
+		perror("Error: malloc failed\n");
+		error = 1;
+		return;
+	}
+	new->n = atoi(token);
+	new->prev = NULL;
+	new->next = NULL;
 
-        if (*stack)
-        {
-                (*stack)->prev = new;
-				new->next = *stack;
-        }
-        *stack = new;
+	if (*stack)
+	{
+		(*stack)->prev = new;
+		new->next = *stack;
+	}
+	*stack = new;
 }
 
 /**
@@ -58,14 +58,13 @@ void push(char *token, stack_t **stack, unsigned int linenum)
 
 void pall(stack_t **stack, unsigned int linenum)
 {
-        stack_t *temp = *stack;
-
-        (void)linenum;
-        while (temp)
-        {
-                printf("%d\n", temp->n);
-                temp = temp->next;
-        }
+	stack_t *temp = *stack;
+	(void)linenum;
+	while (temp)
+	{
+		printf("%d\n", temp->n);
+		temp = temp->next;
+	}
 }
 
 /**
@@ -103,7 +102,7 @@ int op_funcs(char *line, stack_t **stack, unsigned int linenum)
 	instruction_t func[] = {
 		{"pall", pall},
 
-                };
+		};
 	int i;
 
 	for (i = 0; func[i].opcode != NULL; i++)
