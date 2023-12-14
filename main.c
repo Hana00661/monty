@@ -1,48 +1,48 @@
 #include "monty.h"
 
-int main(void)
+int error = 0;
+/**
+ *main - the Entery Point
+ *@argv: tab of arguments
+ *@argc: number of arguments
+ *Return: EXIT_FAILURE or EXIT_SUCCESS
+ */
+
+int main(int argc, char **argv)
 {
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
-    unsigned int line_number = 0;
-    stack_t *stack = NULL;
-    instruction_t instructions[] = {
-        {"push", push},
-        {"pall", pall},
-        {NULL, NULL}};
+	FILE *ptr;
+	char *line = NULL, *token = NULL;
+	size_t size = 0;
+	stack_t *stack = NULL;
+	unsigned int linenum = 0;
 
-    while ((read = getline(&line, &len, stdin)) != -1)
-    {
-        line_number++;
-        char *opcode = strtok(line, " \n");
-        if (opcode == NULL || *opcode == '#')
-            continue;
-
-        int found = 0;
-        for (int i = 0; instructions[i].opcode != NULL; i++)
-        {
-            if (strcmp(opcode, instructions[i].opcode) == 0)
-            {
-                instructions[i].f(&stack, line_number);
-                found = 1;
-                break;
-            }
-        }
-        if (found == 0)
-        {
-            dprintf(STDERR_FILENO, "L%u: unknown instruction %s\n", line_number, opcode);
-            exit(EXIT_FAILURE);
-        }
-    }
-
-    free(line);
-    while (stack != NULL)
-    {
-        stack_t *tmp = stack;
-        stack = stack->next;
-        free(tmp);
-    }
-
-    return 0;
+	if (argc != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+	ptr = fopen(argv[1], "r");
+	if (ptr == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
+	while (getline(&line, &size, ptr) != -1 && error != 1)
+	{
+		linenum++;
+		token = strtok(line, "\n\t ");
+		if (token == NULL || strncmp(token, "#", 1) == 0)
+			continue;
+		if (strcmp(token, "push") == 0)
+		{
+			token = strtok(NULL, "\n\t ");
+			push(token, &stack, linenum);
+		}
+		else
+			op_funcs(token, &stack, linenum);
+	}
+	free_all(stack, line, ptr);
+	if (error == 1)
+		exit(EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
